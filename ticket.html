@@ -734,4 +734,18 @@
 </script>
 
 </body>
+    <body>
+    <!-- اینجا بقیهٔ محتوا یا تیکت‌ها -->
+
+    <!-- فرم تیکت -->
+    <form onsubmit="sendTicket(event)">
+        <input id="name" placeholder="اسم شما" required>
+        <input id="subject" placeholder="موضوع تیکت" required>
+        <textarea id="message" placeholder="متن تیکت" required></textarea>
+        <button type="submit">ارسال تیکت</button>
+    </form>
+
+    <!-- این خط اسکریپت باید اینجا باشه، نه اول صفحه -->
+    <script src="ticket.js"></script>
+</body>
 </html>
