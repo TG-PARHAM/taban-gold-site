@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>تابان گلد - Taban Gold</title>
+    <style>
+        body {
+            margin: 0;
+            background: #ffffff;
+            font-family: "IRANSans", Arial, sans-serif;
+        }
+
+        /* نوار طلایی دور صفحه */
+        .border {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .border-top,
+        .border-bottom {
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(to right, #b8860b, #ffd700, #b8860b);
+        }
+
+        .border-top { top: 0; }
+        .border-bottom { bottom: 0; }
+
+        .border-left,
+        .border-right {
+            top: 0;
+            bottom: 0;
+            width: 12px;
+            background: linear-gradient(to bottom, #b8860b, #ffd700, #b8860b);
+        }
+
+        .border-left { left: 0; }
+        .border-right { right: 0; }
+
+        /* دکمه‌ها */
+        .menu-btn, .ticket-btn {
+            position: fixed;
+            top: 20px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 20px;
+            text-decoration: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+            z-index: 2000;
+        }
+
+        /* خانه فعال */
+        .menu-btn {
+            left: 20px;
+            background: #000;
+            color: silver;
+        }
+
+        /* تیکت غیرفعال */
+        .ticket-btn {
+            left: 120px;
+            background: silver;
+            color: #000;
+        }
+
+        /* مرکز صفحه */
+        .center {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* عکس وسط */
+        .center img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(0,0,0,0.4);
+        }
+
+        /* نوار قیمت‌ها */
+        .price-bar {
+            position: fixed;
+            right: 12px;
+            top: 0;
+            bottom: 0;
+            width: 180px;
+            background: #000;
+            border-left: 2px solid #444;
+            border-right: 2px solid #444;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+            padding-top: 20px;
+            text-align: left;
+            padding-left: 10px;
+            overflow-y: auto;
+        }
+
+        .price-bar h2 {
+            color: silver;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- نوارهای طلایی -->
+    <div class="border border-top"></div>
+    <div class="border border-bottom"></div>
+    <div class="border border-left"></div>
+    <div class="border border-right"></div>
+
+    <!-- دکمه‌ها -->
+    <a class="menu-btn" href="index.html">خانه🏠</a>
+    <a class="ticket-btn" href="ticket.html">تیکت🎫</a>
+
+    <!-- عکس وسط صفحه -->
+    <div class="center">
+        <img src="logo.jpg">
+    </div>
+
+    <!-- نوار قیمت‌ها -->
+    <div class="price-bar">
+        <h2>: قیمت ها</h2>
+    </div>
+<div style="
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    line-height: 30px;
+">
+    آی دی تلگرام تابان گلد : 
+    <a href="https://t.me/tabangold56" style="color:black; text-decoration:none; font-size:18px;">
+        https://t.me/tabangold56
+    </a>
+    <br>
+    آی دی اینستاگرام تابان گلد : 
+    <a href="https://www.instagram.com/gold_taban" style="color:black; text-decoration:none; font-size:18px;">
+        https://www.instagram.com/gold_taban
+    </a>
+</div>
+</body>
+</html>
