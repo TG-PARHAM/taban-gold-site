@@ -1,0 +1,43 @@
+name: Add Ticket
+
+on:
+  repository_dispatch:
+    types: [add-ticket]
+
+jobs:
+  update-ticket-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Read tickets.json
+      id: readfile
+      run: |
+        content=$(cat tickets.json)
+        echo "content=$content" >> $GITHUB_OUTPUT
+
+    - name: Add new ticket
+      id: addticket
+      run: |
+        echo "Event payload: ${{ github.event.client_payload }}"
+        newTicket=$(jq -n \
+          --arg name "${{ github.event.client_payload.name }}" \
+          --arg subject "${{ github.event.client_payload.subject }}" \
+          --arg message "${{ github.event.client_payload.message }}" \
+          --arg createdAt "$(date -Iseconds)" \
+          '{id: (now|toint), name: $name, subject: $subject, message: $message, status: "open", createdAt: $createdAt}')
+        
+        echo "New ticket: $newTicket"
+
+        updated=$(jq ". + [$newTicket]" tickets.json)
+        echo "$updated" > tickets.json
+
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "New ticket added"
+        file_pattern: tickets.json
+      env:
+        GITHUB_TOKEN: ${{ secrets.TICKET_TOKEN }}
