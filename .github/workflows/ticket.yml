@@ -1,16 +1,52 @@
-name: Test Actions
+name: Process Tickets
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: "*/2 * * * *"   # هر ۲ دقیقه اجرا می‌شود
+  workflow_dispatch:
 
 jobs:
-  test:
+  run:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Say Hello
-        run: echo "Actions فعال شد"
+      - name: Read tickets
+        id: read
+        run: |
+          echo "tickets=$(cat tickets.json)" >> $GITHUB_OUTPUT
+
+      - name: Create issues
+        if: ${{ steps.read.outputs.tickets != '[]' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Processing tickets..."
+          echo '${{ steps.read.outputs.tickets }}' > tickets.json
+
+          node <<EOF
+          const fs = require('fs');
+          const tickets = JSON.parse(fs.readFileSync('tickets.json', 'utf8'));
+          const { execSync } = require('child_process');
+
+          for (const t of tickets) {
+            const title = "New Ticket";
+            const body = t.message + "\\n\\nTime: " + t.time;
+
+            execSync(`gh issue create --title "${title}" --body "${body}"`, {
+              stdio: 'inherit'
+            });
+          }
+
+          fs.writeFileSync('tickets.json', '[]');
+          EOF
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add tickets.json
+          git commit -m "Clear processed tickets" || echo "No changes"
+          git push
